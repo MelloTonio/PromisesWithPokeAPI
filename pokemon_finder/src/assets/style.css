@@ -5,3 +5,17 @@
 img{
     height: 150px;
 }
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    margin-top: 70px;
+}
+.Icone{
+    width: 50px;
+    pointer-events: none;
+    height: 30px;
+} 
+.footinho{
+    position: fixed;
+}
