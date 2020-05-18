@@ -18,13 +18,13 @@ document.addEventListener('click',e =>{
     const enviar = document.querySelector('.pokeNumber')
     const pokeAmigo = document.querySelector('.PokeAmigo')
     const pokeTipo = document.querySelector('.PokeTipo')
-
     let habilidades = document.querySelector('.Hability')
     let src = document.getElementById("x");
     let img = document.createElement("img");
 
     if(el === botao){
     async function resolvePoke(){
+    
        pokemons = await obterPokemons(String(enviar.value))
        enviar.value = ''
 
@@ -41,7 +41,7 @@ document.addEventListener('click',e =>{
 
        pokeAmigo.innerHTML = (capitalize(pokemons.name))
 
-       if(x.types[1] === undefined){
+       if(pokemons.types[1] === undefined){
             pokeTipo.innerHTML = `${capitalize(pokemons.types[0].type.name)}`
        }else{
            pokeTipo.innerHTML = `${capitalize(pokemons.types[0].type.name)} & ${capitalize(pokemons.types[1].type.name)}`

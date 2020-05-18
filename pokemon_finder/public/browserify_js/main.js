@@ -1,6 +1,60 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const URL = `https://pokeapi.co/api/v2/pokemon`
+const axios = require('axios')
+
+async function obterPokemons(numero){
+    const url = `${URL}/${numero}`
+    const response = await axios.get(url)
+    return response.data
+}
+
+const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
+document.addEventListener('click',e =>{
+    const el = e.target
+    const botao = document.querySelector('.botao')
+    const enviar = document.querySelector('.pokeNumber')
+    const pokeAmigo = document.querySelector('.PokeAmigo')
+    const pokeTipo = document.querySelector('.PokeTipo')
+    let habilidades = document.querySelector('.Hability')
+    let src = document.getElementById("x");
+    let img = document.createElement("img");
+
+    if(el === botao){
+    async function resolvePoke(){
+    
+       pokemons = await obterPokemons(String(enviar.value))
+       enviar.value = ''
+
+       habilidades.innerHTML = ''
+       
+       const url = `${pokemons.sprites.front_default}`
+       src.innerHTML = ''
+       img.src = `${url}`;
+       src.appendChild(img);
+
+       for(e of pokemons.abilities){
+        habilidades.innerHTML += ` | ${e.ability.name} |`
+       }
+
+       pokeAmigo.innerHTML = (capitalize(pokemons.name))
+
+       if(pokemons.types[1] === undefined){
+            pokeTipo.innerHTML = `${capitalize(pokemons.types[0].type.name)}`
+       }else{
+           pokeTipo.innerHTML = `${capitalize(pokemons.types[0].type.name)} & ${capitalize(pokemons.types[1].type.name)}`
+        }
+    }
+    resolvePoke()
+    }
+})
+
+},{"axios":2}],2:[function(require,module,exports){
 module.exports = require('./lib/axios');
-},{"./lib/axios":3}],2:[function(require,module,exports){
+},{"./lib/axios":4}],3:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -182,7 +236,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"../core/buildFullPath":9,"../core/createError":10,"./../core/settle":14,"./../helpers/buildURL":18,"./../helpers/cookies":20,"./../helpers/isURLSameOrigin":22,"./../helpers/parseHeaders":24,"./../utils":26}],3:[function(require,module,exports){
+},{"../core/buildFullPath":10,"../core/createError":11,"./../core/settle":15,"./../helpers/buildURL":19,"./../helpers/cookies":21,"./../helpers/isURLSameOrigin":23,"./../helpers/parseHeaders":25,"./../utils":27}],4:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -237,7 +291,7 @@ module.exports = axios;
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
 
-},{"./cancel/Cancel":4,"./cancel/CancelToken":5,"./cancel/isCancel":6,"./core/Axios":7,"./core/mergeConfig":13,"./defaults":16,"./helpers/bind":17,"./helpers/spread":25,"./utils":26}],4:[function(require,module,exports){
+},{"./cancel/Cancel":5,"./cancel/CancelToken":6,"./cancel/isCancel":7,"./core/Axios":8,"./core/mergeConfig":14,"./defaults":17,"./helpers/bind":18,"./helpers/spread":26,"./utils":27}],5:[function(require,module,exports){
 'use strict';
 
 /**
@@ -258,7 +312,7 @@ Cancel.prototype.__CANCEL__ = true;
 
 module.exports = Cancel;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var Cancel = require('./Cancel');
@@ -317,14 +371,14 @@ CancelToken.source = function source() {
 
 module.exports = CancelToken;
 
-},{"./Cancel":4}],6:[function(require,module,exports){
+},{"./Cancel":5}],7:[function(require,module,exports){
 'use strict';
 
 module.exports = function isCancel(value) {
   return !!(value && value.__CANCEL__);
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -420,7 +474,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = Axios;
 
-},{"../helpers/buildURL":18,"./../utils":26,"./InterceptorManager":8,"./dispatchRequest":11,"./mergeConfig":13}],8:[function(require,module,exports){
+},{"../helpers/buildURL":19,"./../utils":27,"./InterceptorManager":9,"./dispatchRequest":12,"./mergeConfig":14}],9:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -474,7 +528,7 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 
 module.exports = InterceptorManager;
 
-},{"./../utils":26}],9:[function(require,module,exports){
+},{"./../utils":27}],10:[function(require,module,exports){
 'use strict';
 
 var isAbsoluteURL = require('../helpers/isAbsoluteURL');
@@ -496,7 +550,7 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
   return requestedURL;
 };
 
-},{"../helpers/combineURLs":19,"../helpers/isAbsoluteURL":21}],10:[function(require,module,exports){
+},{"../helpers/combineURLs":20,"../helpers/isAbsoluteURL":22}],11:[function(require,module,exports){
 'use strict';
 
 var enhanceError = require('./enhanceError');
@@ -516,7 +570,7 @@ module.exports = function createError(message, config, code, request, response) 
   return enhanceError(error, config, code, request, response);
 };
 
-},{"./enhanceError":12}],11:[function(require,module,exports){
+},{"./enhanceError":13}],12:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -597,7 +651,7 @@ module.exports = function dispatchRequest(config) {
   });
 };
 
-},{"../cancel/isCancel":6,"../defaults":16,"./../utils":26,"./transformData":15}],12:[function(require,module,exports){
+},{"../cancel/isCancel":7,"../defaults":17,"./../utils":27,"./transformData":16}],13:[function(require,module,exports){
 'use strict';
 
 /**
@@ -641,7 +695,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
   return error;
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -716,7 +770,7 @@ module.exports = function mergeConfig(config1, config2) {
   return config;
 };
 
-},{"../utils":26}],14:[function(require,module,exports){
+},{"../utils":27}],15:[function(require,module,exports){
 'use strict';
 
 var createError = require('./createError');
@@ -743,7 +797,7 @@ module.exports = function settle(resolve, reject, response) {
   }
 };
 
-},{"./createError":10}],15:[function(require,module,exports){
+},{"./createError":11}],16:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -765,7 +819,7 @@ module.exports = function transformData(data, headers, fns) {
   return data;
 };
 
-},{"./../utils":26}],16:[function(require,module,exports){
+},{"./../utils":27}],17:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -866,7 +920,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 }).call(this,require('_process'))
-},{"./adapters/http":2,"./adapters/xhr":2,"./helpers/normalizeHeaderName":23,"./utils":26,"_process":27}],17:[function(require,module,exports){
+},{"./adapters/http":3,"./adapters/xhr":3,"./helpers/normalizeHeaderName":24,"./utils":27,"_process":28}],18:[function(require,module,exports){
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -879,7 +933,7 @@ module.exports = function bind(fn, thisArg) {
   };
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -952,7 +1006,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   return url;
 };
 
-},{"./../utils":26}],19:[function(require,module,exports){
+},{"./../utils":27}],20:[function(require,module,exports){
 'use strict';
 
 /**
@@ -968,7 +1022,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
     : baseURL;
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1023,7 +1077,7 @@ module.exports = (
     })()
 );
 
-},{"./../utils":26}],21:[function(require,module,exports){
+},{"./../utils":27}],22:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1039,7 +1093,7 @@ module.exports = function isAbsoluteURL(url) {
   return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
 };
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1109,7 +1163,7 @@ module.exports = (
     })()
 );
 
-},{"./../utils":26}],23:[function(require,module,exports){
+},{"./../utils":27}],24:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -1123,7 +1177,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
   });
 };
 
-},{"../utils":26}],24:[function(require,module,exports){
+},{"../utils":27}],25:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1178,7 +1232,7 @@ module.exports = function parseHeaders(headers) {
   return parsed;
 };
 
-},{"./../utils":26}],25:[function(require,module,exports){
+},{"./../utils":27}],26:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1207,7 +1261,7 @@ module.exports = function spread(callback) {
   };
 };
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var bind = require('./helpers/bind');
@@ -1553,7 +1607,7 @@ module.exports = {
   trim: trim
 };
 
-},{"./helpers/bind":17}],27:[function(require,module,exports){
+},{"./helpers/bind":18}],28:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1739,58 +1793,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],28:[function(require,module,exports){
-const URL = `https://pokeapi.co/api/v2/pokemon`
-const axios = require('axios')
-
-async function obterPokemons(numero){
-    const url = `${URL}/${numero}`
-    const response = await axios.get(url)
-    return response.data
-}
-
-const capitalize = (s) => {
-    if (typeof s !== 'string') return ''
-    return s.charAt(0).toUpperCase() + s.slice(1)
-  }
-
-document.addEventListener('click',e =>{
-    const el = e.target
-    const botao = document.querySelector('.botao')
-    const enviar = document.querySelector('.pokeNumber')
-    const pokeAmigo = document.querySelector('.PokeAmigo')
-    const pokeTipo = document.querySelector('.PokeTipo')
-
-    let habilidades = document.querySelector('.Hability')
-    let src = document.getElementById("x");
-    let img = document.createElement("img");
-
-    if(el === botao){
-    async function resolvePoke(){
-       pokemons = await obterPokemons(String(enviar.value))
-       enviar.value = ''
-
-       habilidades.innerHTML = ''
-       
-       const url = `${pokemons.sprites.front_default}`
-       src.innerHTML = ''
-       img.src = `${url}`;
-       src.appendChild(img);
-
-       for(e of pokemons.abilities){
-        habilidades.innerHTML += ` | ${e.ability.name} |`
-       }
-
-       pokeAmigo.innerHTML = (capitalize(pokemons.name))
-
-       if(x.types[1] === undefined){
-            pokeTipo.innerHTML = `${capitalize(pokemons.types[0].type.name)}`
-       }else{
-           pokeTipo.innerHTML = `${capitalize(pokemons.types[0].type.name)} & ${capitalize(pokemons.types[1].type.name)}`
-        }
-    }
-    resolvePoke()
-    }
-})
-
-},{"axios":1}]},{},[28]);
+},{}]},{},[1]);
