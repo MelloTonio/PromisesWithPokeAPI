@@ -8,7 +8,7 @@ Bibliotecas necessárias para rodar:
 * Axios
 * Feito com auxilio do Browsify
 
-```npm init ```
+```npm init ```  
  ```npm install axios```  
 
 ### Design
