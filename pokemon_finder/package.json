@@ -1,0 +1,21 @@
+{
+  "name": "js_listas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "forin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "browserify-shim": "^3.8.14",
+    "request": "^2.88.2",
+    "save": "^2.4.0"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.1"
+  }
+}
