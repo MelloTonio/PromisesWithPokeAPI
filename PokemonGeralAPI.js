@@ -11,7 +11,7 @@ async function obterPokemons(numero){
 async function main(){
     try{
         let pokeNames = []
-        const result = await obterPokemons('50')
+        const result = await obterPokemons('50') //Choose a number from 10 to 807
 /*      for(let i = 0; i <= result.results.length-1; i++){
             let pokemon = result.results[i]
             pokeNames.push(pokemon.name)
