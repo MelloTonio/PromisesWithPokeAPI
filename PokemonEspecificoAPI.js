@@ -7,7 +7,7 @@ async function obterPokemons(numero){
     return response.data
 }
 
-obterPokemons('') //Choose a number from 0 to 807
+obterPokemons('') //Choose a number from 1 to 807
 .then(async function(pokemon){
     console.log(`Pokemon: ${pokemon.name}`)
     console.log(`Tipo: ${pokemon.types[0].type.name}`)
