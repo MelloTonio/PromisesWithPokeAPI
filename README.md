@@ -22,7 +22,7 @@ Bibliotecas necessárias para rodar:
 ## Built With
 
 * [Bootstrap](https://getbootstrap.com/) 
-
+* [PokeAPI](https://pokeapi.co/)
 
 ## Authors
 
