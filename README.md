@@ -1,6 +1,5 @@
-# Learning Async/Await with PokeAPI
-
-Utilizando uma api para aprender sobre troca de informações no Js
+<h1 align="center">Learning Async/Await with PokeAPI</h1>
+<p align="center"><i>The objective of this project is to train async / await through the search for pokemon in PokeAPI</i></p>
 
 ### Prerequisites
 
