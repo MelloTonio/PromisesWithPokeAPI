@@ -16,7 +16,7 @@ Required Libraries:
 
 * [Bootstrap](https://getbootstrap.com/) 
 * [PokeAPI](https://pokeapi.co/)
-
+* [Browserify](http://browserify.org/)
 ## Authors
 
 * **Antonio Mello Babo**  - [Mello](https://github.com/MelloTonio)
