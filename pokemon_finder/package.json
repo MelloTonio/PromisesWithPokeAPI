@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "browserify-shim": "^3.8.14",
     "request": "^2.88.2",
     "save": "^2.4.0"
